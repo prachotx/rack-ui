@@ -58,28 +58,26 @@
                             <td>
                                 <a class="btn btn-info text-base-100" href="/check_out_detail/{{ $item->id }}"><i
                                         class="fa-solid fa-list"></i></a>
-                                @if (Auth::user()->id == $item->out_user_id and $item->status == 'draft')
-                                    <a class="btn btn-warning text-base-100" href="/edit_check_out/{{ $item->id }}"><i
-                                            class="fa-solid fa-edit"></i></a>
-                                    <a class="btn btn-error text-base-100 delete_check_out" data-bs-toggle="modal"
-                                        data-bs-target="#DeleteCheckOutModal" data-item="{{ $item }}"
-                                        href="#"><i class="fa-solid fa-trash"></i></a>
-                                    <a class="btn btn-success text-base-100 confirm_check_out" data-bs-toggle="modal"
-                                        data-bs-target="#ConfirmCheckOutModal" data-item="{{ $item }}"
-                                        href="#"><i class="fa-solid fa-check"></i></a>
-                                @endif
-                                @if ($item->status == 'confirm' or $item->status == 'approve')
-                                    <a class="btn btn-primary text-base-100" target="_blank"
-                                        href="/print_check_out/{{ $item->id }}"><i class="fa-solid fa-print"></i></a>
-                                @endif
-                                @if (Auth::user()->role == 'admin' and $item->status == 'confirm')
-                                    <a class="btn btn-success text-base-100 approve_check_out" data-bs-toggle="modal"
-                                        data-bs-target="#ApproveCheckOutModal" data-item="{{ $item }}"
-                                        href="#"><i class="fa-solid fa-thumbs-up"></i></a>
-                                    <a class="btn btn-error text-base-100 reject_check_out" data-bs-toggle="modal"
-                                        data-bs-target="#RejectCheckOutModal" data-item="{{ $item }}"
-                                        href="#"><i class="fa-solid fa-thumbs-down"></i></a>
-                                @endif
+
+                                <a class="btn btn-warning text-base-100" href="/edit_check_out/{{ $item->id }}"><i
+                                        class="fa-solid fa-edit"></i></a>
+                                <a class="btn btn-error text-base-100 delete_check_out" data-bs-toggle="modal"
+                                    data-bs-target="#DeleteCheckOutModal" data-item="{{ $item }}" href="#"><i
+                                        class="fa-solid fa-trash"></i></a>
+                                <a class="btn btn-success text-base-100 confirm_check_out" data-bs-toggle="modal"
+                                    data-bs-target="#ConfirmCheckOutModal" data-item="{{ $item }}"
+                                    href="#"><i class="fa-solid fa-check"></i></a>
+
+                                <a class="btn btn-primary text-base-100" target="_blank"
+                                    href="/print_check_out/{{ $item->id }}"><i class="fa-solid fa-print"></i></a>
+
+                                <a class="btn btn-success text-base-100 approve_check_out" data-bs-toggle="modal"
+                                    data-bs-target="#ApproveCheckOutModal" data-item="{{ $item }}"
+                                    href="#"><i class="fa-solid fa-thumbs-up"></i></a>
+                                <a class="btn btn-error text-base-100 reject_check_out" data-bs-toggle="modal"
+                                    data-bs-target="#RejectCheckOutModal" data-item="{{ $item }}" href="#"><i
+                                        class="fa-solid fa-thumbs-down"></i></a>
+
                             </td>
                         </tr>
                     @endforeach
@@ -187,7 +185,7 @@
     </div>
 
     <script>
-        //todo:slug generate
+        // เปิด Modal
         $(document).on('click', '.delete_check_out', function(e) {
             let item = $(this).data('item');
             $('.code').text(item['code']);
@@ -224,10 +222,18 @@
             $('#RejectCheckOutModal').removeClass('hidden');
         });
 
-        // Close Modals
-        $('#closeDeleteCheckOutModal, #closeConfirmCheckOutModal, #closeApproveCheckOutModal, #closeRejectCheckOutModal')
-            .on('click', function() {
-                $(this).closest('.fixed').addClass('hidden');
-            });
+        // Close Modals (ใช้ selector ที่ถูกต้องในการเลือก modal ที่ต้องการปิด)
+        $('#closeDeleteCheckOutModal, #closeDeleteCheckOutModalBtn').on('click', function() {
+            $('#DeleteCheckOutModal').addClass('hidden');
+        });
+        $('#closeConfirmCheckOutModal, #closeConfirmCheckOutModalBtn').on('click', function() {
+            $('#ConfirmCheckOutModal').addClass('hidden');
+        });
+        $('#closeApproveCheckOutModal, #closeApproveCheckOutModalBtn').on('click', function() {
+            $('#ApproveCheckOutModal').addClass('hidden');
+        });
+        $('#closeRejectCheckOutModal, #closeRejectCheckOutModalBtn').on('click', function() {
+            $('#RejectCheckOutModal').addClass('hidden');
+        });
     </script>
 @endsection

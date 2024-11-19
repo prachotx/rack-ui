@@ -51,7 +51,7 @@
                         <th scope="col">Quantity</th>
                         <th scope="col">Rack</th>
                         <th scope="col">Block</th>
-                        <th class="rounded-tr" scope="col">&nbsp;</th>
+                        <th class="rounded-tr" scope="col">Operation</th>
                     </tr>
                 </thead>
                 <tbody class="text-[16px]">
@@ -74,7 +74,7 @@
                                 <form action="/assign_check_out_quantity/{{ $check_out->id }}" method="post">
                                     @csrf <!-- {{ csrf_field() }} -->
                                     <input type="hidden" name="packing_detail_id" value="{{ $item->id }}">
-                                    <button type="submit" class="btn btn-success btn-sm"><i class="fa-solid fa-plus"></i>
+                                    <button type="submit" class="btn btn-success text-base-100 btn-sm"><i class="fa-solid fa-plus"></i>
                                         Select</a>
                                 </form>
                             </td>

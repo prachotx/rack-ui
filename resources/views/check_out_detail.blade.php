@@ -62,7 +62,7 @@
                         <th scope="col">Quantity</th>
                         <th scope="col">Rack</th>
                         <th scope="col">Block</th>
-                        <th class="rounded-tr" scope="col">&nbsp;</th>
+                        <th class="rounded-tr" scope="col">Operation</th>
                     </tr>
                 </thead>
                 <tbody class="text-[16px]">
@@ -83,9 +83,9 @@
                             </td>
                             <td>
                                 @if (Auth::user()->id == $item->check_out->out_user_id and $item->check_out->status == 'draft')
-                                    <a class="btn btn-warning" href="/edit_check_out_detail/{{ $item->id }}"><i
+                                    <a class="btn btn-warning text-base-100" href="/edit_check_out_detail/{{ $item->id }}"><i
                                             class="fa-solid fa-edit"></i></a>
-                                    <a class="btn btn-danger delete_check_out_detail" data-bs-toggle="modal"
+                                    <a class="btn btn-error text-base-100 delete_check_out_detail" data-bs-toggle="modal"
                                         data-bs-target="#DeleteCheckOutDetailModal" data-item="{{ $item }}"
                                         href="#"><i class="fa-solid fa-trash"></i></a>
                                 @endif
