@@ -11,10 +11,6 @@
             </div>
         </div>
         <div class="p-[20px] border-base-400 border-2 border-t-0 rounded-b-box">
-            <div class="mb-3 ">
-                <label for="code" class="col-sm-2 col-form-label fw-bold"><kbd class="kbd">Code</kbd></label>
-                <label name="code" class="col-sm-2 col-form-label">{{ $rack->code }}</label>
-            </div>
             <div class="mb-3">
                 <label for="name" class="col-sm-2 col-form-label fw-bold"><kbd class="kbd">Name</kbd></label>
                 <label name="name" class="col-sm-2 col-form-label">{{ $rack->name }}</label>

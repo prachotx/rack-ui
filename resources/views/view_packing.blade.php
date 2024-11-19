@@ -24,9 +24,10 @@
                                 {{-- เพิ่มการตัวสอบว่า packing มี productsหรือไม่ --}}
                             @endforeach
                             @if ($all_detail == true)
-                                <a class="btn btn-success text-base-100 confirm_packing" data-bs-toggle="modal"
-                                    data-bs-target="#ConfirmPackingModal" data-item="{{ $packing }}" href="#"><i
-                                        class="fa-solid fa-check"></i> Confirm</a>
+                                <a class="btn btn-success text-base-100 confirm_packing" href="#"
+                                    data-item="{{ $packing }}">
+                                    <i class="fa-solid fa-check"></i> Confirm
+                                </a>
                             @endif
                         </div>
                     @endif
@@ -120,28 +121,49 @@
     </div>
 
     <!-- Modal -->
-    <div class="modal fade" id="ConfirmPackingModal" tabindex="-1" aria-labelledby="ConfirmPackingModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <form id="form-confirm-packing" action="/confirm_packing/{{ $packing->id }}" method="post">
-                    @csrf <!-- {{ csrf_field() }} -->
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="ConfirmPackingModalLabel">Confirm Packing</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <p><strong>Code: </strong><span class="code">{{ $packing->code }}</span></p>
-                        <p><strong>Date: </strong><span class="date">{{ $packing->pack_date }}</span></p>
-                        <p><strong>Remark: </strong><span class="remark">{{ $packing->remark }}</span></p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-success"><i class="fa-solid fa-check"></i> Confirm</a>
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    </div>
-                </form>
-            </div>
+    <div id="ConfirmPackingModal" class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center">
+        <div class="bg-white rounded-lg shadow-lg w-1/3">
+            <form id="form-confirm-packing" action="" method="post">
+                @csrf <!-- {{ csrf_field() }} -->
+                <div class="flex justify-between items-center p-4 border-b">
+                    <h5 class="text-lg font-semibold">Confirm Packing</h5>
+                    <button type="button" class="btn-close text-lg" id="closeConfirmPackingModal">×</button>
+                </div>
+                <div class="p-4">
+                    <p><strong>Code: </strong><span class="code"></span></p>
+                    <p><strong>Date: </strong><span class="date"></span></p>
+                    <p><strong>Remark: </strong><span class="remark"></span></p>
+                </div>
+                <div class="flex justify-end p-4 border-t gap-2">
+                    <button type="submit" class="btn btn-success text-base-100">
+                        <i class="fa-solid fa-check"></i> Confirm
+                    </button>
+                    <button type="button" class="btn" id="closeConfirmPackingModalBtn">Close</button>
+                </div>
+            </form>
         </div>
     </div>
+
+    <script>
+        $(document).on('click', '.confirm_packing', function(e) {
+            e.preventDefault();
+            let item = $(this).data('item');
+
+            $('.code').text(item['code']);
+            $('.date').text(item['pack_date']);
+            $('.remark').text(item['remark']);
+
+            // ตั้งค่า action ของฟอร์มด้วย URL ที่ต้องการ
+            $('#form-confirm-packing').attr('action', '/confirm_packing/' + item['id']);
+
+            // แสดง modal
+            $('#ConfirmPackingModal').removeClass('hidden');
+        });
+
+        // ปิด Modal เมื่อคลิกปุ่ม Close
+        $('#closeConfirmPackingModal, #closeConfirmPackingModalBtn').on('click', function() {
+            $('#ConfirmPackingModal').addClass('hidden');
+        });
+    </script>
 
 @endsection

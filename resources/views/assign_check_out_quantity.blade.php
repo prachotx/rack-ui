@@ -27,40 +27,50 @@
                 <label for="remark" class="col-sm-2 col-form-label fw-bold"><kbd class="kbd">Remark</kbd></label>
                 <label name="remark" class="col-sm-3 col-form-label">{{ $check_out->remark }}</label>
                 <label for="status" class="col-sm-2 col-form-label fw-bold"><kbd class="kbd">Status</kbd></label>
-                <label name="status" class="col-sm-3 col-form-label">{{ $check_out->status }}</label>
+                <label name="status" class="col-sm-3 col-form-label">
+                    @if ($check_out->status == 'approve')
+                        <div class="badge badge-success gap-2 text-base-100 w-16 font-semibold">
+                            {{ $check_out->status }}
+                        </div>
+                    @elseif ($check_out->status == 'confirm')
+                        <div class="badge badge-info gap-2 text-base-100 w-16 font-semibold">
+                            {{ $check_out->status }}
+                        </div>
+                    @else
+                        <div class="badge badge-warning gap-2 text-base-100 w-16 font-semibold">
+                            {{ $check_out->status }}
+                        </div>
+                    @endif
+                </label>
             </div>
             <form method="POST" action="/create_check_out_detail/{{ $check_out->id }}">
                 @csrf
                 <input type="hidden" name="packing_detail_id" value="{{ $packing_detail->id }}">
-                <div class="mb-3">
+                <div class="mb-3 grid grid-cols-6 items-center">
                     <label for="product" class="font-bold">Product Code</label>
-                    <div class="mt-3">
+                    <div>
                         <label name="product" class="col-sm-2 col-form-label">{{ $packing_detail->product->code }}</label>
                     </div>
                 </div>
-
-                <div class="mb-3">
+                <div class="mb-3 grid grid-cols-6 items-center">
                     <label for="ref_no" class="font-bold">Ref No.</label>
-                    <div class="mt-3">
+                    <div>
                         <label name="ref_no" class="col-sm-2 col-form-label">{{ $packing_detail->ref_no }}</label>
                     </div>
                 </div>
-
-                <div class="mb-3">
+                <div class="mb-3 grid grid-cols-6 items-center">
                     <label for="rack" class="font-bold">Rack</label>
-                    <div class="mt-3">
+                    <div>
                         <label name="rack"
                             class="col-sm-2 col-form-label">{{ $packing_detail->block->rack->name }}</label>
                     </div>
                 </div>
-
-                <div class="mb-3">
+                <div class="mb-3 grid grid-cols-6 items-center">
                     <label for="block" class="font-bold">Block</label>
-                    <div class="mt-3">
+                    <div>
                         <label name="block" class="col-sm-2 col-form-label">{{ $packing_detail->block->code }}</label>
                     </div>
                 </div>
-
                 <div class="mb-3">
                     <label for="quantity" class="font-bold">Quantity</label>
                     <div class="my-3">

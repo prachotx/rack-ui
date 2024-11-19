@@ -37,7 +37,7 @@
                 <tbody class="text-[16px]">
                     @foreach ($packings as $item)
                         <tr>
-                            <td><a href="/view_packing/{{ $item->id }}">{{ $item->code }}</a></td>
+                            <td><a class="text-blue-700" href="/view_packing/{{ $item->id }}">{{ $item->code }}</a></td>
                             <td>{{ $item->pack_date }}</td>
                             <td>{{ $item->remark }}</td>
                             <td>
